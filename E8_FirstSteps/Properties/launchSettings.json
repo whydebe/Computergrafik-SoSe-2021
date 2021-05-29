@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "E8_FirstSteps": {
+      "commandName": "Executable",
+      "executablePath": "fusee",
+      "commandLineArgs": "player $(TargetPath)"
+    }
+  }
+}
