@@ -42,7 +42,7 @@
             "command": "fusee",
             "args": [
                 "pack",
-                "bin/Debug/E8_FirstSteps.dll"
+                "bin/Debug/Tut08_FirstSteps.dll"
             ],
             "group": "build",
             "presentation": {
@@ -60,7 +60,7 @@
             "command": "fusee",
             "args": [
                 "publish",
-                "-i", "bin/Debug/E8_FirstSteps.dll",
+                "-i", "bin/Debug/Tut08_FirstSteps.dll",
                 "-o", "${workspaceFolder}/pub"
             ],
             "type": "shell",
