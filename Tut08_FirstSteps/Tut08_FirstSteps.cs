@@ -69,8 +69,8 @@ namespace FuseeApp {
             // Animate the camera angle
             _camAngle = _camAngle + 90.0f * M.Pi/180.0f * DeltaTime;
             // Animate the cube
-            _cubeTransform.Translation = new float3(0, 10 * M.Sin(60 * TimeSinceStart), 0);
-            _cubeTransform.Rotation = new float3(0, -5 * M.Sin(-60 * TimeSinceStart), 0);
+            _cubeTransform.Translation = new float3(0, 10 * M.Sin(1 * TimeSinceStart), 0);
+            _cubeTransform.Rotation = new float3(0, -5 * M.Sin(-1 * TimeSinceStart), 0);
             // Setup the camera 
             RC.View = float4x4.CreateTranslation(0, 0, 50) * float4x4.CreateRotationY(_camAngle);
             _sceneRenderer.Render(RC);
