@@ -22,8 +22,8 @@ namespace FuseeApp
 
     /* ---------------------------------------------
                 !    HOW TO USE     !
-            ROTATE:     HOLD L-MOUSE
-            OPEN/CLOSE: W/S BUTTON
+            ROTATE:     L-MOUSE
+            OPEN/CLOSE: SPACE
             UP/DOWN:    UP/DOWN ARROW-KEY
             LEFT/RIGHT: LEFT/RIGHT ARROW-KEY
     --------------------------------------------- */
@@ -45,6 +45,8 @@ namespace FuseeApp
         private Transform _grip3Transform;
         private Transform _grip4Transform;
         private float gripAngle = 0;
+        private Boolean gripOpen = true;
+        private Boolean spaceActive = false;
 
 
         SceneContainer CreateScene()
@@ -52,7 +54,7 @@ namespace FuseeApp
             // Initialize transform components that need to be changed inside "RenderAFrame"
             _baseTransform = new Transform
             {
-                Rotation = new float3(0, 0.5f, 0),
+                Rotation = new float3(0, 0, 0),
                 Scale = new float3(1, 1, 1),
                 Translation = new float3(0, 0, 0)
             };
@@ -315,15 +317,14 @@ namespace FuseeApp
         {
             if(Mouse.LeftButton)
             {
-                _camAngle += Mouse.Velocity.x * Time.DeltaTime * 0.001f;
+                _camAngle += Mouse.Velocity.x * Time.DeltaTime * -0.001f;
             }
 
             _bodyTransform.Rotation.y += Time.DeltaTime * Keyboard.LeftRightAxis;
             _upperArmTransform.Rotation.x += Time.DeltaTime * Keyboard.UpDownAxis;
-            _foreArmTransform.Rotation.x += Time.DeltaTime * Keyboard.UpDownAxis;
+            _foreArmTransform.Rotation.x += Time.DeltaTime * Keyboard.WSAxis;
             
-            gripAngle += (Keyboard.WSAxis * Time.DeltaTime);
-
+            /*
             if (gripAngle >= -0.65f && gripAngle <= 0.92f)
             {
                 _grip1Transform.Rotation.z = -gripAngle;
@@ -331,7 +332,45 @@ namespace FuseeApp
                 _grip3Transform.Rotation.x = gripAngle;
                 _grip4Transform.Rotation.x = -gripAngle;
             }
+            */
             
+            _grip1Transform.Rotation.z = -gripAngle;
+            _grip2Transform.Rotation.z = gripAngle;
+            _grip3Transform.Rotation.x = gripAngle;
+            _grip4Transform.Rotation.x = -gripAngle;
+
+            if (gripOpen)
+            {
+                if (gripAngle < 0.65f)
+                {
+                    gripAngle += 0.92f * DeltaTime;
+                }
+
+            }
+            
+            else
+            {
+                if (gripAngle > -0.65f) {
+                    gripAngle -= 0.92f * DeltaTime;
+                }
+            }
+
+            if (Keyboard.GetKey(KeyCodes.Space))
+            {
+                if (!spaceActive)
+                {
+                    gripOpen = !gripOpen;
+                }
+                spaceActive = true;
+            }
+            
+            else
+            {
+                spaceActive = false;
+            }
+
+
+            /*
             else if (gripAngle < -0.65f)
             {
                 gripAngle = -0.65f;
@@ -341,6 +380,7 @@ namespace FuseeApp
             {
                 gripAngle = 0.92f;
             }
+            */
 
             SetProjectionAndViewport();
             // Clear the backbuffer
@@ -359,7 +399,7 @@ namespace FuseeApp
             RC.Viewport(0, 0, Width, Height);
             // Create a new projection matrix generating undistorted images on the new aspect ratio.
             var aspectRatio = Width / (float)Height;
-            // 0.25*PI Rad -> 45° Opening angle along the vertical direction. Horizontal opening angle is calculated based on the aspect ratio
+            // 0.25*PI Rad -> 45° gripOpen angle along the vertical direction. Horizontal gripOpen angle is calculated based on the aspect ratio
             // Front clipping happens at 1 (Objects nearer than 1 world unit get clipped)
             // Back clipping happens at 2000 (Anything further away from the camera than 2000 world units gets clipped, polygons will be cut)
             var projection = float4x4.CreatePerspectiveFieldOfView(M.PiOver4, aspectRatio, 1, 20000);
