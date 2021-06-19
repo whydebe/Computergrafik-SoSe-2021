@@ -157,7 +157,7 @@ namespace FuseeApp
                 norms[i * 4 + 0] = new float3(0, 1, 0);
                 norms[i * 4 + 1] = new float3(M.Cos(delta * i), 0, M.Sin(delta * i));
                 norms[i * 4 + 2] = new float3(M.Cos(delta * i), 0, M.Sin(delta * i));
-                norms[i * 4 + 3] = new float3(0, -1, 0);  
+                norms[i * 4 + 3] = new float3(0, -1, 0);
 
                 // Top: tri
                 tris[12 * (i - 1) + 0] = (ushort) (4 * segments);      // Point: top center

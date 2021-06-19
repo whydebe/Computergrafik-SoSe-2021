@@ -48,7 +48,7 @@ namespace FuseeApp
                             SimpleMeshes.MakeMaterial((float4) ColorUint.Red),
 
                             // MESH COMPONENT
-                            SimpleMeshes.CreateCylinder(5, 10, 16),
+                            SimpleMeshes.CreateCylinder(5, 20, 16),
                         }
                     },
                 }
