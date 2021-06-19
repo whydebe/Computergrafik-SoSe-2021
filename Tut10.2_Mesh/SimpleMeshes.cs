@@ -123,52 +123,6 @@ namespace FuseeApp
                 specularStrength: 1f);
         }
 
-        public static Mesh CreateCylinderBottom(float radius, float height, int segments)
-        {
-            float3[] verts = new float3[segments + 1];
-            float3[] norms = new float3[segments + 1];
-            ushort[] tris = new ushort[segments * 3];
-
-            /* TEST
-            verts[0] = new float3(0,0,0); 
-            verts[1] = new float3(radius,0,0); 
-            verts[2] = new float3(0,0,radius); 
-            norms[0] = new float3(0,1,0); 
-            norms[1] = new float3(0,1,0); 
-            norms[2] = new float3(0,1,0); 
-            tris[0] = 0;
-            tris[1] = 1;
-            tris[2] = 2;
-            */
-
-            float delta = 2 * M.Pi / segments;
-
-            verts[0] = new float3(radius, 0, 0);
-            norms[0] = float3.UnitY;
-            verts[segments] = new float3(0, 0, 0);
-            norms[segments] = float3.UnitY;
-
-            for (int i = 1; i < segments; i++)
-            {
-                verts[i] = new float3(radius * M.Cos(i * delta), 0, radius * M.Sin(i * delta));
-                norms[i] = float3.UnitY;
-                tris[3 * i - 1] = (ushort) segments; // Point: center
-                tris[3 * i - 2] = (ushort) i;        // Point: current segment
-                tris[3 * i - 3] = (ushort) (i - 1);  // Point: previous segment
-            }
-
-            tris[3 * segments - 1] = (ushort) segments;
-            tris[3 * segments - 2] = 0;
-            tris[3 * segments - 3] = (ushort) (segments -1);
-
-            return new Mesh
-            {
-                Vertices = verts,
-                Normals = norms,
-                Triangles = tris,
-            };
-        }
-
         public static Mesh CreateCylinder(float radius, float height, int segments)
         {
             float delta = 2 * M.Pi / segments;
@@ -177,34 +131,33 @@ namespace FuseeApp
             float3[] norms = new float3[segments * 4 + 2];
         	ushort[] tris  = new ushort[segments * 3 * 4];
 
-            verts[0] = new float3(radius, height / 2,0);
-            verts[1] = new float3(radius, height / 2,0);
-            verts[2] = new float3(radius, - height / 2,0);
-            verts[3] = new float3(radius, - height / 2,0);
+            verts[0] = new float3(radius, height / 2f, 0);
+            verts[1] = new float3(radius, height / 2f, 0);
+            verts[2] = new float3(radius, - height / 2f, 0);
+            verts[3] = new float3(radius, - height / 2f, 0);
 
             norms[0] = new float3(0, 1, 0);
             norms[1] = new float3(1, 0, 0);
             norms[2] = new float3(1, 0, 0);
             norms[3] = new float3(0, -1, 0);
 
-            verts[segments * 4] = new float3(0, height / 2,0);
-            verts[segments * 4 + 1] = new float3(0, - height / 2,0);
+            verts[segments * 4] = new float3(0, height / 2f, 0);
+            verts[segments * 4 + 1] = new float3(0, - height / 2f, 0);
 
             norms[segments * 4] = new float3(0, 1, 0);
             norms[segments * 4 + 1] = new float3(0, -1, 0);
 
             for (int i = 1; i < segments; i++)
             {
-                verts[i * 4 + 0] = new float3(radius * M.Cos(delta * i),  height / 2,radius * M.Sin(delta * i)); // Top: cover
-                verts[i * 4 + 1] = new float3(radius * M.Cos(delta * i),  height / 2,radius * M.Sin(delta * i)); // Top: mantle
-                verts[i * 4 + 2] = new float3(radius * M.Cos(delta * i), -height / 2,radius * M.Sin(delta * i)); // Bottom: mantle
-                verts[i * 4 + 3] = new float3(radius * M.Cos(delta * i), -height / 2,radius * M.Sin(delta * i)); // Bottom: cover
+                verts[i * 4 + 0] = new float3(radius * M.Cos(delta * i),  height / 2f, radius * M.Sin(delta * i)); // Top: cover
+                verts[i * 4 + 1] = new float3(radius * M.Cos(delta * i),  height / 2f, radius * M.Sin(delta * i)); // Top: mantle
+                verts[i * 4 + 2] = new float3(radius * M.Cos(delta * i), -height / 2f, radius * M.Sin(delta * i)); // Bottom: mantle
+                verts[i * 4 + 3] = new float3(radius * M.Cos(delta * i), -height / 2f, radius * M.Sin(delta * i)); // Bottom: cover
 
                 norms[i * 4 + 0] = new float3(0, 1, 0);
                 norms[i * 4 + 1] = new float3(M.Cos(delta * i), 0, M.Sin(delta * i));
                 norms[i * 4 + 2] = new float3(M.Cos(delta * i), 0, M.Sin(delta * i));
                 norms[i * 4 + 3] = new float3(0, -1, 0);  
-
 
                 // Top: tri
                 tris[12 * (i - 1) + 0] = (ushort) (4 * segments);      // Point: top center
@@ -274,6 +227,5 @@ namespace FuseeApp
         {
             throw new NotImplementedException();
         }
-
     }
 }
