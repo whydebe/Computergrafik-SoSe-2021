@@ -64,7 +64,8 @@ namespace FuseeApp
             
 
             _scene = CreateScene();
-
+            RC.SetRenderState(RenderState.CullMode, (uint)Cull.Clockwise);
+            //RC.SetRenderState(RenderState.FillMode ,(uint)FillMode.Wireframe);
             // Create a scene renderer holding the scene above
             _sceneRenderer = new SceneRendererForward(_scene);
         }

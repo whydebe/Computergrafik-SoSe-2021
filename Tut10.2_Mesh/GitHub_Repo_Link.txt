@@ -1,0 +1,4 @@
+Link zum Repository von Yannis Dold (aka whygameplays) auf GitHub:
+
+GitHub: https://github.com/whygameplays/Computergrafik-SoSe-2021
+Aufgabe 8: https://github.com/whygameplays/Computergrafik-SoSe-2021/tree/main/Tut08_FirstSteps
