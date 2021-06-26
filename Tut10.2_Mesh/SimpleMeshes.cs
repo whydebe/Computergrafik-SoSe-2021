@@ -136,9 +136,9 @@ namespace FuseeApp
             verts[2] = new float3(radius, - height / 2f, 0);
             verts[3] = new float3(radius, - height / 2f, 0);
 
-            norms[0] = new float3(0, 1, 0);
-            norms[1] = new float3(1, 0, 0);
-            norms[2] = new float3(1, 0, 0);
+            norms[0] = new float3(0, 1,  0);
+            norms[1] = new float3(1, 0,  0);
+            norms[2] = new float3(1, 0,  0);
             norms[3] = new float3(0, -1, 0);
 
             verts[segments * 4] = new float3(0, height / 2f, 0);
@@ -170,8 +170,8 @@ namespace FuseeApp
                 tris[12 * (i - 1) + 5] = (ushort) (4 * i + 2);         // Point: current top shell
 
                  // Side 2: tri
-                tris[12 * (i-1) + 6] = (ushort) (4 * (i - 1) + 2);     // Point: previous lower shell
-                tris[12 * (i-1) + 7] = (ushort) (4 * (i - 1) + 1);     // Point: current top shell
+                tris[12 * (i - 1) + 6] = (ushort) (4 * (i - 1) + 2);   // Point: previous lower shell
+                tris[12 * (i - 1) + 7] = (ushort) (4 * (i - 1) + 1);   // Point: current top shell
                 tris[12 * (i - 1) + 8] = (ushort) (4 * i + 1);         // Point: previous top shell
 
                 // Bottom: tri
